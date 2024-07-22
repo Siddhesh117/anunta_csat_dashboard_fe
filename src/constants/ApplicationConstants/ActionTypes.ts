@@ -1,0 +1,14 @@
+/* customizer const */
+export const TOGGLE_COLLAPSED_NAV = "TOGGLE_COLLAPSE_MENU";
+export const WINDOW_WIDTH = "WINDOW-WIDTH";
+export const SWITCH_LANGUAGE = "SWITCH-LANGUAGE";
+
+export const SET_COUNTRY_LIST = "SET_COUNTRY_LIST";
+export const SET_STATE_LIST = "SET_STATE_LIST";
+export const SET_CITY_LIST = "SET_CITY_LIST";
+
+export const SET_PARTNER_DETAILS = "SET_PARTNER_DETAILS";
+export const CLEAR_REDUX_STORE = "CLEAR_REDUX_STORE";
+export const RE_RENDER_SIDE_BAR = "RE_RENDER_SIDE_BAR";
+export const SET_USER_TYPE = "SET_USER_TYPE";
+export const RE_RENDER_TOP_BAR = "RE_RENDER_TOP_BAR";

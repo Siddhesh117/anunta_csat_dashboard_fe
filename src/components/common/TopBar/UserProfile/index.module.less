@@ -1,0 +1,86 @@
+@import "../../../../styles/variables.less";
+
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5rem;
+}
+
+.user-type__selector {
+  width: 20vw;
+}
+
+.user-profile {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: @white-color;
+  // color: @app-primary-color;
+}
+
+.gx-avatar-name {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+}
+
+.user-type-container {
+  margin-right: 7rem !important;
+}
+
+/* media queries with smaller max-width have preference/overrites styles with higher max-width */
+
+/* large mobile */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .user-profile {
+    padding: 10px 20px;
+  }
+
+  .gx-avatar-name {
+    font-size: 12px;
+  }
+
+  .user-type-container {
+    margin-right: 5rem !important;
+  }
+
+  .user-type__selector {
+    width: 24vw;
+    font-size: 12px;
+  }
+
+  .options-label {
+    font-size: 14px !important;
+  }
+}
+
+/* small mobile */
+@media only screen and (max-width: 600px) {
+  .user-type__selector {
+    font-size: 10px;
+    width: 30vw;
+  }
+
+  .user-type-container {
+    margin-right: 2rem !important;
+  }
+
+  .user-profile {
+    padding: 7px 10px;
+  }
+
+  .gx-avatar-name {
+    font-size: 10px;
+  }
+
+  .options-label {
+    font-size: 12px !important;
+  }
+}

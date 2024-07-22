@@ -1,0 +1,74 @@
+@import "../../../../styles/variables.less";
+
+.modal-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: flex-start;
+  color: @app-primary-color;
+}
+
+.modal-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: flex-start;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    /* Width of the scrollbar */
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: @text-color-grey;
+    /* Color of the scrollbar thumb */
+    border-radius: 5px;
+    /* Radius for rounded corners */
+  }
+}
+
+.close-btn {
+  display: flex;
+  align-self: center;
+  align-items: center;
+}
+
+.close-send-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 23px 0px 0px 0px;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+  .modal-header {
+    font-size: 20px !important;
+  }
+}

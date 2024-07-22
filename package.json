@@ -1,0 +1,86 @@
+{
+  "name": "csat_dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:test": "env-cmd -f .env.test react-app-rewired start",
+    "start:dev": "env-cmd -f .env.development react-app-rewired start",
+    "start:uat": "env-cmd -f .env.prod react-app-rewired start",
+    "start": "react-app-rewired start",
+    "build:test": "env-cmd -f .env.test react-app-rewired build",
+    "build:dev": "env-cmd -f .env.development react-app-rewired build",
+    "build:uat": "env-cmd -f .env.uat react-app-rewired build",
+    "build": "cross-env NODE_ENV=production react-app-rewired build",
+    "dev": "react-app-rewired --openssl-legacy-provider start",
+    "test": "react-app-rewired --env=jsdom",
+    "less": "lessc --js src/styles/wieldy.less public/css/style.css && lessc --js src/styles/wieldy.less public/css/style.min.css --compress -x",
+    "format:check": "prettier --check **/*.ts **/*.tsx",
+    "format:write": "prettier --write **/*.ts **/*.tsx",
+    "lint:check": "eslint --no-error-on-unmatched-pattern ./src/components ./src/services  ./src/pages ./src/routes ./src/util ./src/appRedux ./src/shared",
+    "lint:fix": "eslint --no-error-on-unmatched-pattern --fix ./src/components ./src/services  ./src/pages ./src/routes ./src/util ./src/appRedux ./src/shared",
+    "pre_commit_check": "yarn run format:write && yarn run format:check && yarn run lint:check && yarn run lint:fix"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "rules": {
+      "no-console": "warn",
+      "no-self-compare": "error",
+      "no-mixed-spaces-and-tabs": "error"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.3.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "antd": "^4.15.1",
+    "axios": "^1.4.0",
+    "connected-react-router": "^6.8.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "history": "^5.3.0",
+    "less": "^4.1.0",
+    "less-loader": "5.0.0",
+    "markdown-to-jsx": "6.10.3",
+    "mini-css-extract-plugin": "0.11.3",
+    "moment-timezone": "^0.5.43",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-intl": "^5.10.16",
+    "react-otp-input": "^3.1.1",
+    "react-pdf": "5.7.2",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^6.23.0",
+    "react-scripts": "^4.0.1",
+    "react-webcam": "^7.2.0",
+    "recharts": "^2.12.7",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "sonarqube-scanner": "^3.1.0",
+    "typescript": "4.4.4",
+    "url-search-params": "^1.1.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/markdown-to-jsx": "^6.11.0",
+    "@types/react-dom": "^17.0.1",
+    "@types/react-pdf": "5.7.2",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/url-search-params": "^1.1.2",
+    "customize-cra": "^0.9.1",
+    "env-cmd": "^10.1.0",
+    "prettier": "^2.8.8",
+    "react-app-rewired": "^2.1.5",
+    "redux-devtools-extension": "^2.13.9"
+  }
+}

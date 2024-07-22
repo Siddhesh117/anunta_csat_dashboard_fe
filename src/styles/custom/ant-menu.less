@@ -1,0 +1,30 @@
+@import "../variables.less";
+
+.ant-menu {
+  padding: 10px !important;
+}
+
+.ant-menu-item {
+  width: 100% !important;
+  margin: 5px 10px 5px 0px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px !important;
+}
+
+.ant-menu-item:hover {
+  width: 100% !important;
+  margin: 5px 10px 5px 0px !important;
+  background-color: @app-secondary-color !important;
+  color: @white-color !important;
+}
+
+.ant-menu-item-selected,
+.ant-menu-item>.ant-menu-item-selected>.ant-menu-item-icon,
+.ant-menu-item>.ant-menu-item-selected>.ant-menu-title-content {
+  background-color: @app-secondary-color !important;
+  color: @white-color !important;
+  padding: 15px 20px;
+  border-radius: 12px;
+}

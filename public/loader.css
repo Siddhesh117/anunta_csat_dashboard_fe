@@ -1,0 +1,87 @@
+/*@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i");*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+
+/* default colors, will be changed by javascript code further inside application*/
+:root {
+  --app-primary-color: #0e2723;
+  --app-secondary-color: #1d9854;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Inter", sans-serif !important;
+  height: -webkit-fill-available;
+}
+
+#app-site {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: 60px;
+  height: 100vh;
+
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+}
+
+.loading {
+  width: 120px;
+}
+
+/* 
+.loader {
+  height: 100vh !important;
+  width: 100vw !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* .loading {
+  width: 10vw;
+  width: 280px !important;
+}
+
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .loading {
+    width: 280px !important;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .loading {
+    width: 250px !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .loading {
+    width: 200px !important;
+  }
+} */

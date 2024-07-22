@@ -1,0 +1,48 @@
+@import "../../../styles/variables.less";
+
+/* ant button overrides */
+.button-gradiant {
+  background: @app-primary-color;
+  color: @white-color;
+  font: normal normal medium;
+  border-radius: 6px;
+  border: 1px solid @app-primary-color;
+  transition: all 0.2s ease-in-out;
+  min-width: 143px;
+  height: 42px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  text-align: center;
+}
+
+.button-gradiant:focus {
+  color: @white-color !important;
+  border: 1px solid @app-primary-color;
+  background: @app-primary-color !important;
+}
+
+.button-gradiant:hover {
+  color: @app-primary-color !important;
+  border: 1px solid @app-primary-color;
+  background: @white-color !important;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  .button-gradiant {
+    height: 37px;
+    min-width: 6rem !important;
+    font-size: 12px;
+  }
+}
+
+/* small mobile */
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+  .button-gradiant {
+    height: 37px;
+    min-width: 6rem !important;
+    font-size: 10px;
+  }
+}
