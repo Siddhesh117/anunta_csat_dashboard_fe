@@ -18,9 +18,11 @@ const TopBar = () => {
         <i className={`gx-icon-btn icon icon-menu gx-text-gray`} onClick={config.handleNavCollapse} />
       </div>
 
-      <Link to="/" className={`gx-d-block gx-d-lg-none gx-pointer ${styles["company-logo"]}`}>
+      <Link to="/" className={`gx-d-block gx-d-lg-none gx-mr-3 gx-pointer ${styles["company-logo"]}`}>
         <img className={styles["img-style"]} src={logo_img} alt="" onError={(event: SyntheticEvent<HTMLDivElement>) => ((event.target as HTMLImageElement).src = logo_img)} />
       </Link>
+
+      <span style={{ fontSize: "27px", fontWeight: "600", color: "#DF5225" }}>MIS Studio</span>
 
       <UserProfile />
     </Header>

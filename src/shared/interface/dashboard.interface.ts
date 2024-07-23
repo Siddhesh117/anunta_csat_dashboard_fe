@@ -1,3 +1,5 @@
+import { Moment } from "moment-timezone";
+
 export interface FeedbackChartData {
   name: string;
   value: number;
@@ -31,6 +33,11 @@ export interface DashboardDataAPI {
   data: DashboardDataInterface;
 }
 
+export interface UnsatisfiedNUsersDataAPI {
+  message: string;
+  data: any;
+}
+
 export interface DashboardClientListAPI {
   message: string;
   data: DashboardClientList[];
@@ -55,12 +62,18 @@ export interface DashboardLocationList {
 }
 
 export interface FormDataProps {
-  client?: string | null | undefined;
+  client?: string[] | null | undefined;
+  users?: string[] | null | undefined;
   location?: string | null | undefined;
   deliveryGroup?: string | null | undefined;
   userFeedback?: string | null;
   actionStatus?: string | null;
   userName?: string | null;
+  unsatisfiedNUsers?: number | null;
+  rangePicker?: Moment[];
+  fromDate?: string | Moment | null;
+  toDate?: string | Moment | null;
+  searchValue?: string | null;
 }
 
 export interface GetGarphRecordList {

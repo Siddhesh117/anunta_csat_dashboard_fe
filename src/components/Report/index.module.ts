@@ -11,6 +11,8 @@ import { CustomNotification } from "../../util/CustomNotification";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import { ErrorMessageConstants } from "../../constants/MessageConstants/ErrorMessageConstants";
 import { Pagination } from "../../constants/ApplicationConstants/ReportConstant";
+import useGetUsersList from "../../hooks/useGetUsersList";
+import moment from "moment-timezone";
 
 export const useReport = (props?: { isDashboard?: boolean }) => {
   /* CONSTANT */
@@ -24,6 +26,7 @@ export const useReport = (props?: { isDashboard?: boolean }) => {
   /* CUSTOM HOOKS */
   const { value: loading, handleDisableValue: handleDisableLoading, handleEnableValue: handleEnableLoading } = useValue(true);
   const { loading: loadingClientList, clientList } = useGetClientList();
+  const { loading: loadingUserList, userList } = useGetUsersList();
   const { loading: loadingLocationList, locationList } = useGetLocationList();
   const { loading: loadingDeliveryGroupList, deliveryGroupList } = useGetDeliveryGroupList();
 
@@ -71,7 +74,17 @@ export const useReport = (props?: { isDashboard?: boolean }) => {
       setRecordList([]);
       setFilterOption(data);
 
-      const response = await dashboardService.getSelectedGraphRecordList(data, Pagination.INITIAL_PAGE, Pagination.PAGE_SIZE);
+      const formattedData = {
+        ...data,
+        ...(data?.rangePicker?.[0] && data?.rangePicker?.[1]
+          ? {
+              fromDate: moment(data.rangePicker[0]).format("DD-MM-YYYY"),
+              toDate: moment(data.rangePicker[1]).format("DD-MM-YYYY")
+            }
+          : {})
+      };
+
+      const response = await dashboardService.getSelectedGraphRecordList(formattedData, Pagination.INITIAL_PAGE, Pagination.PAGE_SIZE);
 
       setRecordList(response?.data);
     } catch (error) {
@@ -83,7 +96,7 @@ export const useReport = (props?: { isDashboard?: boolean }) => {
 
   const handleFinish = async (data: FormDataProps) => {
     infiniteScroll.handleDefault();
-    await fetchData(data);
+    await fetchData({ ...data, ...filters });
   };
 
   /* EFFECTS */
@@ -93,6 +106,7 @@ export const useReport = (props?: { isDashboard?: boolean }) => {
       if (props?.isDashboard) {
         await fetchData(filters);
       } else {
+        localStorage.clear();
         await fetchData();
       }
     };
@@ -102,13 +116,14 @@ export const useReport = (props?: { isDashboard?: boolean }) => {
   }, [props?.isDashboard]);
 
   return {
-    loading: loading || loadingClientList || loadingLocationList || loadingDeliveryGroupList,
+    loading: loading || loadingClientList || loadingLocationList || loadingDeliveryGroupList || loadingUserList,
     handleFinish,
     recordList,
     clientList,
     locationList,
     deliveryGroupList,
     observerTarget,
-    infiniteScroll
+    infiniteScroll,
+    userList
   };
 };

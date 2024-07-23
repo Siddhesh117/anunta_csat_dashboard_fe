@@ -9,9 +9,13 @@ import useGetDeliveryGroupList from "../../hooks/useGetDeliveryGroupList";
 import { ActionStatusKeys, DashboardFilterKey, DashboardGraphType } from "../../constants/ApplicationConstants/DashboardConstant";
 import LocalStorageUtil from "../../util/LocalStorageUtil";
 import { LocalStorageConstants } from "../../constants/ApplicationConstants/LocalStorageConstants";
+import moment, { Moment } from "moment-timezone";
+import { Form } from "antd";
 
 export const useDashboard = () => {
   /* CONSTANT */
+  const [form] = Form.useForm();
+
   const filters = LocalStorageUtil.localstorageGetItem(LocalStorageConstants.DASHBOARD_FILTERS);
 
   // locationGraph color
@@ -21,7 +25,7 @@ export const useDashboard = () => {
 
   /* STATE */
   const [dashboardData, setDashboardData] = useState<DashboardDataInterface | null>(null);
-  const [selectedClient, setSelectedClient] = useState<string | null>(null);
+  const [selectedClient, setSelectedClient] = useState<string[] | null>(null);
   const [isDashboardReport, setIsDashboardReport] = useState(false);
 
   /* CUSTOM HOOKS */
@@ -42,7 +46,19 @@ export const useDashboard = () => {
         LocalStorageUtil.localstorageRemoveItem(LocalStorageConstants.DASHBOARD_FILTERS);
       }
 
-      const response = await dashboardService.getDashboardData(data);
+      const formattedData = {
+        ...data,
+        ...(data?.rangePicker?.[0] && data?.rangePicker?.[1]
+          ? {
+              fromDate: moment(data.rangePicker[0]).format("DD-MM-YYYY"),
+              toDate: moment(data.rangePicker[1]).format("DD-MM-YYYY")
+            }
+          : {})
+      };
+
+      const response = await dashboardService.getDashboardData(formattedData);
+
+      form.getFieldsValue(filters);
 
       setDashboardData(response?.data || null);
     } catch (error) {
@@ -54,18 +70,18 @@ export const useDashboard = () => {
 
   /* EFFECTS */
   useEffect(() => {
-    fetchData();
+    fetchData({ unsatisfiedNUsers: 25 });
     // eslint-disable-next-line
   }, []);
 
-  const handleFinish = async (data: string) => {
-    await fetchData({ client: data });
+  const handleFinish = async (data: { client: string[]; unsatisfiedNUsers: number; rangePicker: Moment[] }) => {
+    await fetchData(data);
   };
 
   /* Function to create selectedFilters based on chartType */
-  const createSelectedFilters = (chartType: DashboardGraphType, data: any, selectedClient: string | null) => {
+  const createSelectedFilters = (chartType: DashboardGraphType, data: any, selectedClient: string[] | null) => {
     const { name } = data;
-    const selectedFilters: { [key: string]: string } = {};
+    const selectedFilters: { [key: string]: string[] } = {};
 
     if (selectedClient) {
       selectedFilters[DashboardFilterKey.client] = selectedClient;
@@ -73,12 +89,12 @@ export const useDashboard = () => {
 
     switch (chartType) {
       case DashboardGraphType.PIE_CHART_USER_FEEDBACK:
-        selectedFilters[DashboardFilterKey.userFeedback] = name;
+        selectedFilters[DashboardFilterKey.userFeedback] = [name];
         break;
       case DashboardGraphType.BAR_GARPH_LOCATION:
       case DashboardGraphType.BAR_GARPH_DELIVERY_GROUP:
-        selectedFilters[DashboardFilterKey.actionStatus] = ActionStatusKeys.Issue_Reported;
-        selectedFilters[chartType === DashboardGraphType.BAR_GARPH_LOCATION ? DashboardFilterKey.location : DashboardFilterKey.deliveryGroup] = name;
+        selectedFilters[DashboardFilterKey.actionStatus] = [ActionStatusKeys.Issue_Reported];
+        selectedFilters[chartType === DashboardGraphType.BAR_GARPH_LOCATION ? DashboardFilterKey.location : DashboardFilterKey.deliveryGroup] = [name];
         break;
       default:
         break;
@@ -120,6 +136,7 @@ export const useDashboard = () => {
     isDashboardReport,
     handleBack,
     selectedClient,
-    handleUserNameClick
+    handleUserNameClick,
+    form
   };
 };

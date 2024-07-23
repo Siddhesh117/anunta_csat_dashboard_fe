@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DashboardClientListAPI, DashboardDataAPI, DashboardDeliveryGroupListAPI, DashboardLocationListAPI, FormDataProps, GetGarphRecordsListAPI } from "../shared/interface/dashboard.interface";
+import { DashboardClientListAPI, DashboardDataAPI, DashboardDeliveryGroupListAPI, DashboardLocationListAPI, FormDataProps, GetGarphRecordsListAPI, UnsatisfiedNUsersDataAPI } from "../shared/interface/dashboard.interface";
 
 export const getDashboardData = async (data?: FormDataProps) => {
   /* Base Query */
@@ -7,8 +7,8 @@ export const getDashboardData = async (data?: FormDataProps) => {
 
   const queryParams: string[] = [];
 
-  if (data?.client) {
-    queryParams.push(`client=${data.client}`);
+  if (data?.client && data?.client.length > 0) {
+    queryParams.push(`client=[${data.client}]`);
   }
 
   if (data?.location) {
@@ -17,6 +17,18 @@ export const getDashboardData = async (data?: FormDataProps) => {
 
   if (data?.deliveryGroup) {
     queryParams.push(`deliveryGroup=${data.deliveryGroup}`);
+  }
+
+  if (data?.unsatisfiedNUsers) {
+    queryParams.push(`unsatisfiedNUsers=${data.unsatisfiedNUsers}`);
+  }
+
+  if (data?.fromDate) {
+    queryParams.push(`fromDate=${data.fromDate}`);
+  }
+
+  if (data?.toDate) {
+    queryParams.push(`toDate=${data.toDate}`);
   }
 
   if (queryParams.length > 0) {
@@ -39,6 +51,20 @@ export const getDashboardData = async (data?: FormDataProps) => {
 export const getClientList = async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/dashboard/client-list`);
+
+    if (response.status !== 200) {
+      throw new Error("Error fetching data. Please check your user credentials.");
+    }
+
+    return response.data as DashboardClientListAPI;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUsersList = async () => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/dashboard/users-list`);
 
     if (response.status !== 200) {
       throw new Error("Error fetching data. Please check your user credentials.");
@@ -85,7 +111,11 @@ export const getSelectedGraphRecordList = async (data: FormDataProps, page: numb
   const queryParams: string[] = [`page=${page}`, `pageSize=${pageSize}`];
 
   if (data?.client) {
-    queryParams.push(`client=${data.client}`);
+    queryParams.push(`client=[${data.client}]`);
+  }
+
+  if (data?.users) {
+    queryParams.push(`users=[${data.users}]`);
   }
 
   if (data?.location) {
@@ -106,6 +136,18 @@ export const getSelectedGraphRecordList = async (data: FormDataProps, page: numb
 
   if (data?.userName) {
     queryParams.push(`userName=${data.userName}`);
+  }
+
+  if (data?.searchValue) {
+    queryParams.push(`searchValue=${data.searchValue}`);
+  }
+
+  if (data?.fromDate) {
+    queryParams.push(`fromDate=${data.fromDate}`);
+  }
+
+  if (data?.toDate) {
+    queryParams.push(`toDate=${data.toDate}`);
   }
 
   if (queryParams.length > 0) {
