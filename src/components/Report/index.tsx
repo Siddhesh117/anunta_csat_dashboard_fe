@@ -155,6 +155,8 @@ const Report = (props?: ReportProps) => {
     }
   ];
 
+  console.log("filters?.client", filters?.client);
+
   return (
     <>
       <Card
@@ -170,7 +172,7 @@ const Report = (props?: ReportProps) => {
 
               <div>
                 {filters?.client &&
-                  filters.client.map((client: any, index: number) => (
+                  filters?.client?.map((client: any, index: number) => (
                     <Tag key={index} color="success" className={styles["dashboard-report-tag"]}>
                       {client}
                     </Tag>
@@ -282,9 +284,11 @@ const Report = (props?: ReportProps) => {
                   <Form.Item>
                     <Button disabled={config?.loading} className={`gx-mb-0 gx-btn button-gradiant`} htmlType="submit">
                       Go
-                    </Button>``
+                    </Button>
+                    ``
                   </Form.Item>
-                </Form>``
+                </Form>
+                ``
               </div>
             </div>
           )

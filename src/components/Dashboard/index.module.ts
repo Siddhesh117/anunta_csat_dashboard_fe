@@ -112,7 +112,7 @@ export const useDashboard = () => {
   };
 
   const handleUserNameClick = async (record: UnsatisfiedUserList) => {
-    const selectedFilters = { [DashboardFilterKey.client]: record?.client_name, [DashboardFilterKey.userName]: record?.user_name };
+    const selectedFilters = { [DashboardFilterKey.client]: [record?.client_name], [DashboardFilterKey.userName]: record?.user_name };
     LocalStorageUtil.localstorageSetItem(LocalStorageConstants.REPORT_FILTERS, selectedFilters);
 
     setIsDashboardReport(true);
